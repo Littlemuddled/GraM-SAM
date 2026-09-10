@@ -1,0 +1,42 @@
+sam2:
+  model: sam2.1_hiera_small
+
+training:
+  optimizer: AdamW
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-5
+  batch_size: 4
+  scheduler: cosine
+
+granular_matrix:
+  normalization: minmax_uint8
+  gaussian_kernel: [3, 3]
+  variance_threshold: 40
+  purity_threshold: 0.85
+  intensity_threshold: 15
+
+phase1:
+  tta_views: 10
+  acquisition_increment_percentage_points: 5
+  reported_budgets_percent: [5, 10, 20]
+  challenge_weight: 1.0
+  representativeness_weight: 1.0
+  high_value_sigma: 0.5
+
+phase2:
+  granular_descriptor_dimension: 21
+  frozen_sam2_multiscale_dimension: 352
+  graph_input_dimension: 373
+  feature_knn: 5
+  hidden_dimension: 128
+  graph_sage_blocks: 3
+  dropout: 0.25
+  positive_points_per_class: 1
+  negative_points_per_class: 0
+
+phase3:
+  high_value_sigma: 0.5
+  cps_max_weight: 0.1
+  cps_ramp: gaussian
+  supervised_loss: focal_tversky
+  training_only_gmbs: true

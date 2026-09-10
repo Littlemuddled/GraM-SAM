@@ -1,0 +1,4 @@
+-e .[medical]
+
+# Install the official SAM 2 package separately, then download the official
+# SAM 2.1 Hiera-Small checkpoint. See README.md.
